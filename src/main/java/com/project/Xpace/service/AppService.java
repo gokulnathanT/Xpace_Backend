@@ -5,6 +5,7 @@ import com.project.Xpace.repo.AppRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -18,6 +19,9 @@ public class AppService {
         List<Journey> journeys=repo.findAll();
         System.out.println("data fetched : "+journeys);
         return journeys;
+    }
+    public Journey getTouchPointById(int id){
+       return repo.findById(id).orElse(null);
     }
 
     public Journey getJourneyById(int id) {
