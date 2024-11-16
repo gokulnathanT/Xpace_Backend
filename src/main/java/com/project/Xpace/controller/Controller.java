@@ -14,6 +14,7 @@ import java.util.List;
 import java.util.Optional;
 
 @RestController
+@CrossOrigin(origins = "http://localhost:3001")
 @RequestMapping("/api")
 public class Controller {
     @Autowired
@@ -23,7 +24,7 @@ public class Controller {
     private AppRepo repo;
 
     @GetMapping("/Journey")
-    public ResponseEntity<List<Journey>> getAllJourney() {
+    public ResponseEntity<List<Journey>> getAllJourney() {      // frontend - table representation !
         System.out.println("fetching all journey ");
         List<Journey> journeys = service.getAllJourney();
         System.out.println("journey retrieved: " + journeys);
@@ -97,6 +98,36 @@ public class Controller {
         }
         return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
+
+    @DeleteMapping("/Journey/{id}")
+    public ResponseEntity<?> deleteJourney(@PathVariable int id) throws IOException{
+        Journey journey1=service.getJourneyById(id);
+        System.out.println("Journey deleted !!!");
+        if(journey1!=null){
+            service.deleteJourney(journey1);
+        }
+        return new ResponseEntity<>(journey1,HttpStatus.OK);
+    }
+
+    @PutMapping("/Journey/{id}/{no}")
+    public ResponseEntity<String> editTouchpoint1(@PathVariable int id,@PathVariable int no, @RequestBody String touchpoint ){
+                touchpoint=touchpoint.trim();
+                if(touchpoint.startsWith("\"")&& touchpoint.endsWith("\"")){
+                    touchpoint=touchpoint.substring(1,touchpoint.length()-1);
+                }
+
+                if(no>4||no<1){
+                    return ResponseEntity.badRequest().body("No such touchpoint exists");
+                }
+                boolean isUpdated=service.updateTouchpoint(id,no,touchpoint);
+                if(isUpdated){
+                    return new ResponseEntity<>(touchpoint,HttpStatus.OK);
+                }
+                else{
+                    return  new ResponseEntity<>(HttpStatus.NOT_FOUND);
+                }
+    }
+
 }
 
 

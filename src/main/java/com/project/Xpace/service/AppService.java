@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class AppService {
@@ -36,4 +37,29 @@ public class AppService {
     return repo.save(journey);
 
     }
-}
+
+    public void deleteJourney(Journey journey1) {
+        repo.delete(journey1);
+    }
+
+    public boolean updateTouchpoint(int id, int no, String touchpoint) {
+        Optional<Journey> existingJourney=repo.findById(id);
+        Journey journey=existingJourney.get();
+
+        if(no==1){
+            journey.setT1(touchpoint);
+        }
+        else if(no==2){
+            journey.setT2(touchpoint);
+        }
+        else if(no==3){
+            journey.setT3(touchpoint);
+        }
+        else{
+            journey.setT4(touchpoint);
+        }
+        repo.save(journey);
+        return true;
+
+    }
+    }

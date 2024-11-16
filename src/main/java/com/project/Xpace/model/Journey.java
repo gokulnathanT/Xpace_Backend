@@ -24,9 +24,9 @@ public class Journey {
     @Column(name="`END`")
     private String end;
     @Column(name="T1")
-    private String T1;
+    private  String T1;
     @Column(name="T2")
-    private String T2;
+    private  String T2;
     @Column(name="T3")
     private String T3;
     @Column(name="T4")
@@ -84,7 +84,7 @@ public class Journey {
         return T1;
     }
 
-    public void setT1(String t1) {
+    public  void setT1(String t1) {
         T1 = t1;
     }
 
@@ -93,7 +93,7 @@ public class Journey {
     }
 
     public void setT2(String t2) {
-        T2 = t2;
+        this.T2 = t2;
     }
 
     public String getT3() {
@@ -109,7 +109,7 @@ public class Journey {
     }
 
     public void setT4(String t4) {
-        T4 = t4;
+        this.T4 = t4;
     }
 
     public LocalDate getS_Date() {
@@ -117,7 +117,7 @@ public class Journey {
     }
 
     public void setS_Date(LocalDate s_Date) {
-        S_Date = s_Date;
+        this.S_Date = s_Date;
     }
 
     public LocalDate getE_Date() {
@@ -125,7 +125,7 @@ public class Journey {
     }
 
     public void setE_Date(LocalDate e_Date) {
-        E_Date = e_Date;
+        this.E_Date = e_Date;
     }
 
     public int getTotal_capacity() {
@@ -133,7 +133,7 @@ public class Journey {
     }
 
     public void setTotal_capacity(int total_capacity) {
-        Total_capacity = total_capacity;
+        this.Total_capacity = total_capacity;
     }
 
     public int getAvailable_capacity() {
