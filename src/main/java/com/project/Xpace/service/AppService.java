@@ -2,9 +2,14 @@ package com.project.Xpace.service;
 
 import com.project.Xpace.model.Journey;
 import com.project.Xpace.repo.AppRepo;
+import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
+import org.springframework.web.client.RestTemplate;
 
+import java.time.LocalDate;
+import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -14,6 +19,15 @@ public class AppService {
 
     @Autowired
     private AppRepo repo;
+
+    @Value("${google.maps.api.key}")
+    private String API_KEY;
+
+    private static final String GOOGLE_MAPS_API_URL =
+            "https://maps.googleapis.com/maps/api/distancematrix/json?origins=%s&destinations=%s&key=%s";
+
+
+
 
     public List<Journey> getAllJourney(){
         System.out.println("service : get all journey from db");
@@ -30,7 +44,9 @@ public class AppService {
     }
 
     public Journey addJourney(Journey journey) {
-        return repo.save(journey);
+            return repo.save(journey);
+
+
     }
 
     public Journey updateJourney(int id, Journey journey) {
