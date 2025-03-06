@@ -3,6 +3,8 @@ import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+
+import java.math.BigInteger;
 import java.time.LocalDate;
 
 @Entity
@@ -13,32 +15,32 @@ import java.time.LocalDate;
 public class Journey {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name="ID")
+    @Column(name="id")
     private int id;
-    @Column(name="TRUCK_NO")
-    private Integer truck_no;
-    @Column(name="DRIVER_ID")
-    private int Driver_id;
-    @Column(name="START")
-    private String start;
-    @Column(name="`END`")
-    private String end;
-    @Column(name="T1")
-    private  String T1;
-    @Column(name="T2")
-    private  String T2;
-    @Column(name="T3")
-    private String T3;
-    @Column(name="T4")
-    private String T4;
-    @Column(name="S_Date")
-    private LocalDate S_Date;
-    @Column(name="E_Date")
-    private LocalDate E_Date;
-    @Column(name="Total_capacity")
-    private int Total_capacity;
-    @Column(name="available_capacity")
-    private int available_capacity;
+    @Column(nullable = false)
+    private String truck_no;
+    @Column(nullable = false)
+    private int driverId;
+    @Column(nullable = false)
+    private String startLocation;
+    @Column(nullable = false)
+    private String endLocation;
+    @Column(nullable = false)
+    private LocalDate startDate;
+    @Column(nullable = false)
+    private LocalDate endDate;
+    @Column(nullable = false)
+    private int totalCapacity;
+    @Column(nullable = false)
+    private int availableCapacity;
+
+    @ManyToOne
+    @JoinColumn(name = "assigned_incharge",referencedColumnName = "id",foreignKey = @ForeignKey(name="fk_assigned_incharge"))
+    private User assignedIncharge;
+
+    @ManyToOne
+    @JoinColumn(name = "created_by",referencedColumnName = "id",nullable = false, foreignKey = @ForeignKey(name="fk_created_by"))
+    private User createdBy;
 
     public int getId() {
         return id;
@@ -48,99 +50,83 @@ public class Journey {
         this.id = id;
     }
 
-    public Integer getTruck_no() {
+    public String getTruck_no() {
         return truck_no;
     }
 
-    public void setTruck_no(Integer truck_no) {
+    public void setTruck_no(String truck_no) {
         this.truck_no = truck_no;
     }
 
-    public int getDriver_id() {
-        return Driver_id;
+    public int getDriverId() {
+        return driverId;
     }
 
-    public void setDriver_id(int driver_id) {
-        Driver_id = driver_id;
+    public void setDriverId(int driverId) {
+        this.driverId = driverId;
     }
 
-    public String getStart() {
-        return start;
+    public String getStartLocation() {
+        return startLocation;
     }
 
-    public void setStart(String start) {
-        this.start = start;
+    public void setStartLocation(String startLocation) {
+        this.startLocation = startLocation;
     }
 
-    public String getEnd() {
-        return end;
+    public String getEndLocation() {
+        return endLocation;
     }
 
-    public void setEnd(String end) {
-        this.end = end;
+    public void setEndLocation(String endLocation) {
+        this.endLocation = endLocation;
     }
 
-    public String getT1() {
-        return T1;
+    public LocalDate getStartDate() {
+        return startDate;
     }
 
-    public  void setT1(String t1) {
-        T1 = t1;
+    public void setStartDate(LocalDate startDate) {
+        this.startDate = startDate;
     }
 
-    public String getT2() {
-        return T2;
+    public LocalDate getEndDate() {
+        return endDate;
     }
 
-    public void setT2(String t2) {
-        this.T2 = t2;
+    public void setEndDate(LocalDate endDate) {
+        this.endDate = endDate;
     }
 
-    public String getT3() {
-        return T3;
+    public int getTotalCapacity() {
+        return totalCapacity;
     }
 
-    public void setT3(String t3) {
-        T3 = t3;
+    public void setTotalCapacity(int totalCapacity) {
+        this.totalCapacity = totalCapacity;
     }
 
-    public String getT4() {
-        return T4;
+    public int getAvailableCapacity() {
+        return availableCapacity;
     }
 
-    public void setT4(String t4) {
-        this.T4 = t4;
+    public void setAvailableCapacity(int availableCapacity) {
+        this.availableCapacity = availableCapacity;
     }
 
-    public LocalDate getS_Date() {
-        return S_Date;
+    public User getAssignedIncharge() {
+        return assignedIncharge;
     }
 
-    public void setS_Date(LocalDate s_Date) {
-        this.S_Date = s_Date;
+    public void setAssignedIncharge(User assignedIncharge) {
+        this.assignedIncharge = assignedIncharge;
     }
 
-    public LocalDate getE_Date() {
-        return E_Date;
+    public User getCreatedBy() {
+        return createdBy;
     }
 
-    public void setE_Date(LocalDate e_Date) {
-        this.E_Date = e_Date;
-    }
-
-    public int getTotal_capacity() {
-        return Total_capacity;
-    }
-
-    public void setTotal_capacity(int total_capacity) {
-        this.Total_capacity = total_capacity;
-    }
-
-    public int getAvailable_capacity() {
-        return available_capacity;
-    }
-
-    public void setAvailable_capacity(int available_capacity) {
-        this.available_capacity = available_capacity;
+    public void setCreatedBy(User createdBy) {
+        this.createdBy = createdBy;
     }
 }
