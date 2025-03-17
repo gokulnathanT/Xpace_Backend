@@ -1,8 +1,10 @@
 package com.project.Xpace.controller;
 
+import com.project.Xpace.DTO.JourneyDTO;
 import com.project.Xpace.model.Journey;
 import com.project.Xpace.repo.AppRepo;
 import com.project.Xpace.service.AppService;
+import org.apache.coyote.Response;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -15,120 +17,28 @@ import java.util.List;
 import java.util.Optional;
 
 @RestController
-@CrossOrigin(origins = "http://localhost:3001")
-@RequestMapping("/api")
+//@CrossOrigin(origins = "http://localhost:3001")
+@RequestMapping("/api/journeys")
 public class Controller {
+
     @Autowired
     private AppService service;
 
-    @Autowired
-    private AppRepo repo;
-
-    @GetMapping("/Journey")
-    public ResponseEntity<List<Journey>> getAllJourney() {      // frontend - table representation !
-        System.out.println("fetching all journey ");
-        List<Journey> journeys = service.getAllJourney();
-        System.out.println("journey retrieved: " + journeys);
-        return new ResponseEntity<>(journeys, HttpStatus.OK);
+    public Controller(AppService service){
+        this.service=service;
     }
 
-    @GetMapping("/Journey/{id}")
-    public ResponseEntity<Journey> getJourney(@PathVariable int id) {
-        Journey journey = service.getJourneyById(id);
-        if (journey != null) {
-            return new ResponseEntity<>(journey, HttpStatus.OK);
-        }
-        return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+    @GetMapping
+    public ResponseEntity<List<JourneyDTO>> getAllJourney(){
+        List<JourneyDTO> journeys=service.getAllJourney();
+        return ResponseEntity.ok(journeys);
     }
 
-    @PostMapping(value = "/Journey", consumes = "application/json")
-    public ResponseEntity<?> addJourney(@RequestBody Journey journey) {
-        try {
-            System.out.println(journey.toString());
-            Journey journey1 = service.addJourney(journey);
-            return new ResponseEntity<>(journey1, HttpStatus.CREATED);
-        } catch (Exception e) {
-            return new ResponseEntity<>(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
-        }
+    @GetMapping("/{id}")
+    public ResponseEntity<JourneyDTO> getJourneyById(@PathVariable int id){
+        JourneyDTO journey=service.getJourneyById(id);
+        return ResponseEntity.ok(journey);
     }
 
-    @PutMapping("/Journey/{id}")
-    public ResponseEntity<String> updateJourney(@PathVariable int id, @RequestBody Journey journey) throws IOException {
-
-//        Journey journey1=null;
-//        journey1=service.updateJourney(id,journey);
-//        if(journey1!=null){
-//            return new ResponseEntity<>("Updated",HttpStatus.OK);
-//        }
-//        else{
-//            return new ResponseEntity<>("Failed to update",HttpStatus.BAD_REQUEST);
-//        }
-
-        Optional<Journey> existingJourney = repo.findById(id);
-        if (existingJourney.isPresent()) {
-            Journey JourneyUpdate = existingJourney.get();
-            JourneyUpdate.setTruck_no(journey.getTruck_no());
-            JourneyUpdate.setDriver_id(journey.getDriver_id());
-            JourneyUpdate.setStart(journey.getStart());
-            JourneyUpdate.setEnd(journey.getEnd());
-            JourneyUpdate.setT1(journey.getT1());
-            JourneyUpdate.setT2(journey.getT2());
-            JourneyUpdate.setT3(journey.getT3());
-            JourneyUpdate.setT4(journey.getT4());
-            JourneyUpdate.setS_Date(journey.getS_Date());
-            JourneyUpdate.setE_Date(journey.getE_Date());
-            JourneyUpdate.setTotal_capacity(journey.getTotal_capacity());
-            JourneyUpdate.setAvailable_capacity(journey.getAvailable_capacity());
-
-            repo.save(JourneyUpdate);
-            return new ResponseEntity<>("Updated", HttpStatus.OK);
-        } else {
-            return new ResponseEntity<>("Journey not found", HttpStatus.NOT_FOUND);
-        }
-    }
-    @GetMapping("/Journey/tp/{id}")
-    public ResponseEntity<List<String>> getTouchPointById(@PathVariable int id) throws IOException {
-        Journey  journey1 = service.getTouchPointById(id);
-        if(journey1!=null){
-            List<String> TouchPoints=new ArrayList<>();
-            TouchPoints.add(journey1.getT1());
-            TouchPoints.add(journey1.getT2());
-            TouchPoints.add(journey1.getT3());
-            TouchPoints.add(journey1.getT4());
-            return new ResponseEntity<>(TouchPoints, HttpStatus.OK);
-        }
-        return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-    }
-
-    @DeleteMapping("/Journey/{id}")
-    public ResponseEntity<?> deleteJourney(@PathVariable int id) throws IOException{
-        Journey journey1=service.getJourneyById(id);
-        System.out.println("Journey deleted !!!");
-        if(journey1!=null){
-            service.deleteJourney(journey1);
-        }
-        return new ResponseEntity<>(journey1,HttpStatus.OK);
-    }
-
-    @PutMapping("/Journey/{id}/{no}")
-    public ResponseEntity<String> editTouchpoint1(@PathVariable int id,@PathVariable int no, @RequestBody String touchpoint ){
-                touchpoint=touchpoint.trim();
-                if(touchpoint.startsWith("\"")&& touchpoint.endsWith("\"")){
-                    touchpoint=touchpoint.substring(1,touchpoint.length()-1);
-                }
-
-                if(no>4||no<1){
-                    return ResponseEntity.badRequest().body("No such touchpoint exists");
-                }
-                boolean isUpdated=service.updateTouchpoint(id,no,touchpoint);
-                if(isUpdated){
-                    return new ResponseEntity<>(touchpoint,HttpStatus.OK);
-                }
-                else{
-                    return  new ResponseEntity<>(HttpStatus.NOT_FOUND);
-                }
-    }
 
 }
-
-

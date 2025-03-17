@@ -44,4 +44,61 @@ public class SpaceRequest {
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
     private  Status status=Status.PENDING;
+
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public User getFromAdmin() {
+        return fromAdmin;
+    }
+
+    public void setFromAdmin(User fromAdmin) {
+        this.fromAdmin = fromAdmin;
+    }
+
+    public User getToAdmin() {
+        return toAdmin;
+    }
+
+    public void setToAdmin(User toAdmin) {
+        this.toAdmin = toAdmin;
+    }
+
+    public Journey getToJourney() {
+        return toJourney;
+    }
+
+    public void setToJourney(Journey toJourney) {
+        this.toJourney = toJourney;
+    }
+
+    public int getRequestedCapacity() {
+        return requestedCapacity;
+    }
+
+    public void setRequestedCapacity(int requestedCapacity) {
+        this.requestedCapacity = requestedCapacity;
+    }
+
+    public LocalDateTime getCreatedAt() {
+        return createdAt;
+    }
+
+    public void setCreatedAt(LocalDateTime createdAt) {
+        this.createdAt = createdAt;
+    }
+
+    public Status getStatus() {
+        return status;
+    }
+
+    public void setStatus(Status status) {
+        this.status = status;
+    }
 }
