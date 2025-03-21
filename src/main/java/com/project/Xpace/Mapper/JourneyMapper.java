@@ -10,8 +10,8 @@ public class JourneyMapper {
         return new JourneyDTO(
                 journey.getId(),
                 journey.getTruck_no(),
-                journey.getStartLocation(),
                 journey.getDriverId(),
+                journey.getStartLocation(),
                 journey.getEndLocation(),
                 journey.getStartDate(),
                 journey.getEndDate(),
@@ -48,4 +48,6 @@ public class JourneyMapper {
         journey.setAvailableCapacity(dto.getAvailableCapacity());
         return journey;
     }
+
+
 }

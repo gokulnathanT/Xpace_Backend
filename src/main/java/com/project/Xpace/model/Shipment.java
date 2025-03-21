@@ -37,9 +37,9 @@ public class Shipment {
     @Column(name = "created_at",updatable=false)
     private LocalDateTime createdAt;
 
-    @PrePersist
-    protected void onCreate(){
-        this.createdAt=LocalDateTime.now();
+
+    public void setCreatedAt(LocalDateTime createdAt){
+        this.createdAt=createdAt;
     }
     public int getId() {
         return id;

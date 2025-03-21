@@ -1,20 +1,15 @@
 package com.project.Xpace.controller;
 
 import com.project.Xpace.DTO.JourneyDTO;
-import com.project.Xpace.model.Journey;
-import com.project.Xpace.repo.AppRepo;
-import com.project.Xpace.service.AppService;
-import org.apache.coyote.Response;
+import com.project.Xpace.DTO.UserDTO;
+import com.project.Xpace.service.JourneyService;
+import com.project.Xpace.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.io.IOException;
-import java.util.ArrayList;
 //hello
 import java.util.List;
-import java.util.Optional;
 
 @RestController
 //@CrossOrigin(origins = "http://localhost:3001")
@@ -22,9 +17,9 @@ import java.util.Optional;
 public class Controller {
 
     @Autowired
-    private AppService service;
+    private JourneyService service;
 
-    public Controller(AppService service){
+    public Controller(JourneyService service){
         this.service=service;
     }
 
@@ -40,5 +35,8 @@ public class Controller {
         return ResponseEntity.ok(journey);
     }
 
+
+
+//    public ResponseEntity<>
 
 }

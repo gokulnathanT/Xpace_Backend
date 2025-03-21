@@ -1,7 +1,14 @@
 package com.project.Xpace.DTO;
 
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
 import java.time.LocalDate;
 
+
+
+@NoArgsConstructor
 public class JourneyDTO {
     private int id;
     private String truckNo;
@@ -16,11 +23,11 @@ public class JourneyDTO {
     private UserDTO assignedIncharge;  // Nested DTO for assigned incharge
     private UserDTO createdBy;  // Nested DTO for created by
 
-    public JourneyDTO(int id, String truckNo, String startLocation, int driverId, String endLocation, LocalDate startDate, LocalDate endDate, int totalCapacity, int availableCapacity, UserDTO assignedIncharge, UserDTO createdBy) {
+    public JourneyDTO(int id, String truckNo, int driverId, String startLocation, String endLocation, LocalDate startDate, LocalDate endDate, int totalCapacity, int availableCapacity, UserDTO assignedIncharge, UserDTO createdBy) {
         this.id = id;
         this.truckNo = truckNo;
-        this.startLocation = startLocation;
         this.driverId = driverId;
+        this.startLocation = startLocation;
         this.endLocation = endLocation;
         this.startDate = startDate;
         this.endDate = endDate;
@@ -30,8 +37,13 @@ public class JourneyDTO {
         this.createdBy = createdBy;
     }
 
-    // Getters and Setters
+    public String getTruckNo() {
+        return truckNo;
+    }
 
+    public void setTruckNo(String truckNo) {
+        this.truckNo = truckNo;
+    }
 
     public int getId() {
         return id;
@@ -39,14 +51,6 @@ public class JourneyDTO {
 
     public void setId(int id) {
         this.id = id;
-    }
-
-    public String getTruckNo() {
-        return truckNo;
-    }
-
-    public void setTruckNo(String truckNo) {
-        this.truckNo = truckNo;
     }
 
     public int getDriverId() {
@@ -89,20 +93,20 @@ public class JourneyDTO {
         this.endDate = endDate;
     }
 
-    public int getTotalCapacity() {
-        return totalCapacity;
-    }
-
-    public void setTotalCapacity(int totalCapacity) {
-        this.totalCapacity = totalCapacity;
-    }
-
     public int getAvailableCapacity() {
         return availableCapacity;
     }
 
     public void setAvailableCapacity(int availableCapacity) {
         this.availableCapacity = availableCapacity;
+    }
+
+    public int getTotalCapacity() {
+        return totalCapacity;
+    }
+
+    public void setTotalCapacity(int totalCapacity) {
+        this.totalCapacity = totalCapacity;
     }
 
     public UserDTO getAssignedIncharge() {
