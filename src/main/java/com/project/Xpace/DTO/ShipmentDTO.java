@@ -19,6 +19,9 @@ public class ShipmentDTO {
         this.createdAt = createdAt;
     }
 
+    public ShipmentDTO() {
+    }
+
     public int getId() {
         return id;
     }

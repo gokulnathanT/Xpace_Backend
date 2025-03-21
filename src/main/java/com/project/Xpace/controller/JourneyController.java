@@ -1,9 +1,7 @@
 package com.project.Xpace.controller;
 
 import com.project.Xpace.DTO.JourneyDTO;
-import com.project.Xpace.DTO.UserDTO;
 import com.project.Xpace.service.JourneyService;
-import com.project.Xpace.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -14,12 +12,12 @@ import java.util.List;
 @RestController
 //@CrossOrigin(origins = "http://localhost:3001")
 @RequestMapping("/api/journeys")
-public class Controller {
+public class JourneyController {
 
     @Autowired
     private JourneyService service;
 
-    public Controller(JourneyService service){
+    public JourneyController(JourneyService service){
         this.service=service;
     }
 
@@ -35,8 +33,5 @@ public class Controller {
         return ResponseEntity.ok(journey);
     }
 
-
-
-//    public ResponseEntity<>
 
 }

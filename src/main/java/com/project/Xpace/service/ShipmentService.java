@@ -21,4 +21,12 @@ public class ShipmentService {
         List<Shipment> shipments=repo.findByJourney_Id(id);
         return shipments.stream().map(ShipmentMapper::toDTO).collect(Collectors.toList());
     }
+
+    public ShipmentDTO getShipmentById(int id) {
+        System.out.println("Service: Getting shipment by id " + id);
+        return repo.findById(id)
+                .map(ShipmentMapper::toDTO)
+                .orElse(new ShipmentDTO()); // Returns an empty DTO instead of exception
+    }
+
 }

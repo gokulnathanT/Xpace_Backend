@@ -12,16 +12,22 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 
 @RestController
-@RequestMapping("/shipments")
+@RequestMapping("api/shipments")
 public class ShipmentController {
 
     @Autowired
     private ShipmentService shipmentService;
 
 
-    @GetMapping("/journey/{journeyId}")
+    @GetMapping("/{journeyId}")
     public List<ShipmentDTO> getAllShipments(@PathVariable int journeyId){
         System.out.println("Controller : Fetching shipments for journey ID "+journeyId);
         return shipmentService.getAllShipment(journeyId);
+    }
+
+    @GetMapping("/{journeyId}/shipment/{shipmentId}")
+    public ShipmentDTO getShipmentById(@PathVariable int shipmentId){
+        System.out.println("Fetching the shipment data for particular journey ");
+        return shipmentService.getShipmentById(shipmentId);
     }
 }
