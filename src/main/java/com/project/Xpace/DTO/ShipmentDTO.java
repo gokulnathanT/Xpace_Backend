@@ -7,11 +7,11 @@ import lombok.Data;
 public class ShipmentDTO {
     private int id;
     private int journeyId;
-    private Long createdById;
+    private long createdById;
     private String status;
     private LocalDateTime createdAt;
 
-    public ShipmentDTO(int id, int journeyId, String status, Long createdById, LocalDateTime createdAt) {
+    public ShipmentDTO(int id, int journeyId, String status, long createdById, LocalDateTime createdAt) {
         this.id = id;
         this.journeyId = journeyId;
         this.status = status;
@@ -38,11 +38,11 @@ public class ShipmentDTO {
         this.journeyId = journeyId;
     }
 
-    public Long getCreatedById() {
+    public long getCreatedById() {
         return createdById;
     }
 
-    public void setCreatedById(Long createdById) {
+    public void setCreatedById(long createdById) {
         this.createdById = createdById;
     }
 

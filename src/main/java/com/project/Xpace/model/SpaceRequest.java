@@ -10,8 +10,6 @@ import java.time.LocalDateTime;
 
 @Entity
 @Data
-@AllArgsConstructor
-@NoArgsConstructor
 @Table(name="space_requests")
 public class SpaceRequest {
 
@@ -38,13 +36,26 @@ public class SpaceRequest {
     private LocalDateTime createdAt=LocalDateTime.now();
 
     public enum Status{
-        PENDING,APPROVERD,REJECTED
+        PENDING,APPROVED,REJECTED
     }
 
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
     private  Status status=Status.PENDING;
 
+
+    public SpaceRequest(int id, User fromAdmin, User toAdmin, Journey toJourney, int requestedCapacity, LocalDateTime createdAt, Status status) {
+        this.id = id;
+        this.fromAdmin = fromAdmin;
+        this.toAdmin = toAdmin;
+        this.toJourney = toJourney;
+        this.requestedCapacity = requestedCapacity;
+        this.createdAt = createdAt;
+        this.status = status;
+    }
+
+    public SpaceRequest() {
+    }
 
     public int getId() {
         return id;
