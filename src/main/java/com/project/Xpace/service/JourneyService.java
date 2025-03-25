@@ -30,4 +30,8 @@ public class JourneyService {
     }
 
 
+    public List<JourneyDTO> getJourneyByUserId(int id) {
+        List<Journey> journey=repo.findByCreatedBy_Id(id);
+        return journey.stream().map(JourneyMapper::toDTO).collect(Collectors.toList());
+    }
 }

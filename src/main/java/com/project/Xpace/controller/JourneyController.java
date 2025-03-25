@@ -33,6 +33,13 @@ public class JourneyController {
         return ResponseEntity.ok(journey);
     }
 
+    @GetMapping("/user/{id}")
+    public ResponseEntity<List<JourneyDTO>> getJourneyByUserId(@PathVariable int id){
+        List<JourneyDTO> journey=service.getJourneyByUserId(id);
+        return ResponseEntity.ok(journey);
+    }
+
+
 
 
 }
