@@ -13,120 +13,140 @@ import java.time.LocalDate;
 @NoArgsConstructor
 @Table(name="journey")
 public class Journey {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name="id")
-    private int id;
-    @Column(nullable = false)
-    private String truck_no;
-    @Column(nullable = false)
-    private int driverId;
-    @Column(nullable = false)
-    private String startLocation;
-    @Column(nullable = false)
-    private String endLocation;
-    @Column(nullable = false)
-    private LocalDate startDate;
-    @Column(nullable = false)
-    private LocalDate endDate;
-    @Column(nullable = false)
-    private int totalCapacity;
-    @Column(nullable = false)
-    private int availableCapacity;
+        @Id
+        @GeneratedValue(strategy = GenerationType.IDENTITY)
+        @Column(name="id")
+        private int id;
+        @Column(nullable = false)
+        private String truck_no;
+        @Column(nullable = false)
+        private int driverId;
+        @Column(nullable = false)
+        private String startLocation;
+        @Column(nullable = false)
+        private String endLocation;
+        @Column(nullable = false)
+        private LocalDate startDate;
+        @Column(nullable = false)
+        private LocalDate endDate;
+        @Column(nullable = false)
+        private int totalCapacity;
+        @Column(nullable = false)
+        private int availableCapacity;
 
-    @ManyToOne
-    @JoinColumn(name = "assigned_incharge",referencedColumnName = "id",foreignKey = @ForeignKey(name="fk_assigned_incharge"))
-    private User assignedIncharge;
+        @Enumerated(EnumType.STRING)
+        @Column(nullable = false)
+        private Journey.Status status =Status.SCHEDULED;
 
-    @ManyToOne
-    @JoinColumn(name = "created_by",referencedColumnName = "id",nullable = false, foreignKey = @ForeignKey(name="fk_created_by"))
-    private User createdBy;
+        public enum Status {
+            SCHEDULED,
+            IN_PROGRESS,
+            COMPLETED,
+            CANCELLED
+        }
 
-    public int getId() {
-        return id;
-    }
 
-    public void setId(int id) {
-        this.id = id;
-    }
 
-    public String getTruck_no() {
-        return truck_no;
-    }
+        @ManyToOne
+        @JoinColumn(name = "assigned_incharge",referencedColumnName = "id",foreignKey = @ForeignKey(name="fk_assigned_incharge"))
+        private User assignedIncharge;
 
-    public void setTruck_no(String truck_no) {
-        this.truck_no = truck_no;
-    }
+        @ManyToOne
+        @JoinColumn(name = "created_by",referencedColumnName = "id",nullable = false, foreignKey = @ForeignKey(name="fk_created_by"))
+        private User createdBy;
 
-    public int getDriverId() {
-        return driverId;
-    }
+        public int getId() {
+            return id;
+        }
 
-    public void setDriverId(int driverId) {
-        this.driverId = driverId;
-    }
+        public void setId(int id) {
+            this.id = id;
+        }
 
-    public String getStartLocation() {
-        return startLocation;
-    }
+        public String getTruck_no() {
+            return truck_no;
+        }
 
-    public void setStartLocation(String startLocation) {
-        this.startLocation = startLocation;
-    }
+        public void setTruck_no(String truck_no) {
+            this.truck_no = truck_no;
+        }
 
-    public String getEndLocation() {
-        return endLocation;
-    }
+        public int getDriverId() {
+            return driverId;
+        }
 
-    public void setEndLocation(String endLocation) {
-        this.endLocation = endLocation;
-    }
+        public void setDriverId(int driverId) {
+            this.driverId = driverId;
+        }
 
-    public LocalDate getStartDate() {
-        return startDate;
-    }
+        public String getStartLocation() {
+            return startLocation;
+        }
 
-    public void setStartDate(LocalDate startDate) {
-        this.startDate = startDate;
-    }
+        public void setStartLocation(String startLocation) {
+            this.startLocation = startLocation;
+        }
 
-    public LocalDate getEndDate() {
-        return endDate;
-    }
+        public String getEndLocation() {
+            return endLocation;
+        }
 
-    public void setEndDate(LocalDate endDate) {
-        this.endDate = endDate;
-    }
+        public void setEndLocation(String endLocation) {
+            this.endLocation = endLocation;
+        }
 
-    public int getTotalCapacity() {
-        return totalCapacity;
-    }
+        public LocalDate getStartDate() {
+            return startDate;
+        }
 
-    public void setTotalCapacity(int totalCapacity) {
-        this.totalCapacity = totalCapacity;
-    }
+        public void setStartDate(LocalDate startDate) {
+            this.startDate = startDate;
+        }
 
-    public int getAvailableCapacity() {
-        return availableCapacity;
-    }
+        public LocalDate getEndDate() {
+            return endDate;
+        }
 
-    public void setAvailableCapacity(int availableCapacity) {
-        this.availableCapacity = availableCapacity;
-    }
+        public void setEndDate(LocalDate endDate) {
+            this.endDate = endDate;
+        }
 
-    public User getAssignedIncharge() {
-        return assignedIncharge;
-    }
+        public int getTotalCapacity() {
+            return totalCapacity;
+        }
 
-    public void setAssignedIncharge(User assignedIncharge) {
-        this.assignedIncharge = assignedIncharge;
-    }
+        public void setTotalCapacity(int totalCapacity) {
+            this.totalCapacity = totalCapacity;
+        }
 
-    public User getCreatedBy() {
-        return createdBy;
-    }
+        public int getAvailableCapacity() {
+            return availableCapacity;
+        }
 
-    public void setCreatedBy(User createdBy) {
-        this.createdBy = createdBy;
-    }
+        public void setAvailableCapacity(int availableCapacity) {
+            this.availableCapacity = availableCapacity;
+        }
+
+        public User getAssignedIncharge() {
+            return assignedIncharge;
+        }
+
+        public void setAssignedIncharge(User assignedIncharge) {
+            this.assignedIncharge = assignedIncharge;
+        }
+
+        public User getCreatedBy() {
+            return createdBy;
+        }
+        public void setCreatedBy(User createdBy) {
+            this.createdBy = createdBy;
+        }
+
+        public Status getStatus() {
+            return status;
+        }
+
+        public void setStatus(Status status) {
+            this.status = status;
+        }
 }

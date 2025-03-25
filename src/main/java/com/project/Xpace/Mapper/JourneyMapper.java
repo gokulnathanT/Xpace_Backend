@@ -10,6 +10,7 @@ public class JourneyMapper {
         return new JourneyDTO(
                 journey.getId(),
                 journey.getTruck_no(),
+                journey.getStatus().toString(),
                 journey.getDriverId(),
                 journey.getStartLocation(),
                 journey.getEndLocation(),
@@ -38,6 +39,7 @@ public class JourneyMapper {
 
         Journey journey = new Journey();
         journey.setId(dto.getId());
+        journey.setStatus(Journey.Status.valueOf(dto.getStatus()));
         journey.setTruck_no(dto.getTruckNo());
         journey.setDriverId(dto.getDriverId());
         journey.setStartLocation(dto.getStartLocation());

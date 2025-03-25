@@ -19,11 +19,11 @@ public class JourneyDTO {
     private LocalDate endDate;
     private int totalCapacity;
     private int availableCapacity;
-
+    private String status;
     private UserDTO assignedIncharge;  // Nested DTO for assigned incharge
     private UserDTO createdBy;  // Nested DTO for created by
 
-    public JourneyDTO(int id, String truckNo, int driverId, String startLocation, String endLocation, LocalDate startDate, LocalDate endDate, int totalCapacity, int availableCapacity, UserDTO assignedIncharge, UserDTO createdBy) {
+    public JourneyDTO(int id, String truckNo,String status, int driverId, String startLocation, String endLocation, LocalDate startDate, LocalDate endDate, int totalCapacity, int availableCapacity, UserDTO assignedIncharge, UserDTO createdBy) {
         this.id = id;
         this.truckNo = truckNo;
         this.driverId = driverId;
@@ -35,6 +35,7 @@ public class JourneyDTO {
         this.availableCapacity = availableCapacity;
         this.assignedIncharge = assignedIncharge;
         this.createdBy = createdBy;
+        this.status=status;
     }
 
     public String getTruckNo() {
@@ -123,5 +124,13 @@ public class JourneyDTO {
 
     public void setCreatedBy(UserDTO createdBy) {
         this.createdBy = createdBy;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
     }
 }

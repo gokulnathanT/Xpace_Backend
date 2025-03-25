@@ -30,4 +30,7 @@ public class ShipmentController {
         System.out.println("Fetching the shipment data for particular journey ");
         return shipmentService.getShipmentById(shipmentId);
     }
+
+
+
 }
