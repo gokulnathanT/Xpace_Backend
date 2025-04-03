@@ -1,7 +1,9 @@
 package com.project.Xpace.DTO;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Data
 @JsonInclude(JsonInclude.Include.NON_NULL)
@@ -10,14 +12,20 @@ public class UserDTO {
     private String name;
     private String email;
 
-    // Constructor
 
+    public UserDTO() {
+    }
 
     public UserDTO(long id, String name, String email) {
         this.id = id;
         this.name = name;
         this.email = email;
     }
+
+    // Constructor
+
+
+
 
     public long getId() {
         return id;

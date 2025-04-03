@@ -1,5 +1,6 @@
 package com.project.Xpace.DTO;
 
+import com.project.Xpace.model.Journey;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -7,8 +8,7 @@ import lombok.NoArgsConstructor;
 import java.time.LocalDate;
 
 
-
-@NoArgsConstructor
+@Data
 public class JourneyDTO {
     private int id;
     private String truckNo;
@@ -20,10 +20,12 @@ public class JourneyDTO {
     private int totalCapacity;
     private int availableCapacity;
     private String status;
-    private UserDTO assignedIncharge;  // Nested DTO for assigned incharge
-    private UserDTO createdBy;  // Nested DTO for created by
+    private Long assignedIncharge;  // Nested DTO for assigned incharge
+    private Long createdBy;  // Nested DTO for created by
 
-    public JourneyDTO(int id, String truckNo,String status, int driverId, String startLocation, String endLocation, LocalDate startDate, LocalDate endDate, int totalCapacity, int availableCapacity, UserDTO assignedIncharge, UserDTO createdBy) {
+
+
+    public JourneyDTO(int id, String truckNo, int driverId, String startLocation, String endLocation, LocalDate startDate, LocalDate endDate, int totalCapacity, int availableCapacity, String status, Long assignedIncharge, Long createdBy) {
         this.id = id;
         this.truckNo = truckNo;
         this.driverId = driverId;
@@ -33,9 +35,13 @@ public class JourneyDTO {
         this.endDate = endDate;
         this.totalCapacity = totalCapacity;
         this.availableCapacity = availableCapacity;
+        this.status = status;
         this.assignedIncharge = assignedIncharge;
         this.createdBy = createdBy;
-        this.status=status;
+    }
+
+    public JourneyDTO() {
+
     }
 
     public String getTruckNo() {
@@ -110,19 +116,19 @@ public class JourneyDTO {
         this.totalCapacity = totalCapacity;
     }
 
-    public UserDTO getAssignedIncharge() {
+    public Long getAssignedIncharge() {
         return assignedIncharge;
     }
 
-    public void setAssignedIncharge(UserDTO assignedIncharge) {
+    public void setAssignedIncharge(Long assignedIncharge) {
         this.assignedIncharge = assignedIncharge;
     }
 
-    public UserDTO getCreatedBy() {
+    public Long getCreatedBy() {
         return createdBy;
     }
 
-    public void setCreatedBy(UserDTO createdBy) {
+    public void setCreatedBy(Long createdBy) {
         this.createdBy = createdBy;
     }
 

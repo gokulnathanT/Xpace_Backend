@@ -9,8 +9,6 @@ import java.time.LocalDate;
 
 @Entity
 @Data
-@AllArgsConstructor
-@NoArgsConstructor
 @Table(name="journey")
 public class Journey {
         @Id
@@ -38,7 +36,15 @@ public class Journey {
         @Column(nullable = false)
         private Journey.Status status =Status.SCHEDULED;
 
-        public enum Status {
+
+    public Journey() {
+
+    }
+
+    public Journey(String truckNo, int driverId, String startLocation, String endLocation, LocalDate startDate, LocalDate endDate, int totalCapacity, int availableCapacity, String status, User assignedIncharge, User created) {
+    }
+
+    public enum Status {
             SCHEDULED,
             IN_PROGRESS,
             COMPLETED,
@@ -149,4 +155,19 @@ public class Journey {
         public void setStatus(Status status) {
             this.status = status;
         }
+
+    public Journey(int id, String truck_no, int driverId, String startLocation, String endLocation, LocalDate startDate, LocalDate endDate, int totalCapacity, int availableCapacity, Status status, User assignedIncharge, User createdBy) {
+        this.id = id;
+        this.truck_no = truck_no;
+        this.driverId = driverId;
+        this.startLocation = startLocation;
+        this.endLocation = endLocation;
+        this.startDate = startDate;
+        this.endDate = endDate;
+        this.totalCapacity = totalCapacity;
+        this.availableCapacity = availableCapacity;
+        this.status = status;
+        this.assignedIncharge = assignedIncharge;
+        this.createdBy = createdBy;
+    }
 }
