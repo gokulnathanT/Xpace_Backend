@@ -11,18 +11,22 @@ public class SpaceRequestDTO {
     private int requestedCapacity;
     private LocalDateTime createdAt;
     private Status status;
+    private String pickUp;
+    private String dropAt;
 
     // Constructors
     public SpaceRequestDTO() {}
 
-    public SpaceRequestDTO(int id, long fromAdminId, long toAdminId, int toJourneyId, int requestedCapacity, LocalDateTime createdAt, Status status) {
+    public SpaceRequestDTO(int id, long fromAdminId, long toAdminId, int toJourneyId, int requestedCapacity,LocalDateTime createdAt, Status status,String pickUp,String dropAt) {
         this.id = id;
         this.fromAdminId = fromAdminId;
         this.toAdminId = toAdminId;
         this.toJourneyId = toJourneyId;
         this.requestedCapacity = requestedCapacity;
-        this.createdAt = createdAt;
+        this.createdAt=createdAt;
         this.status = status;
+        this.pickUp=pickUp;
+        this.dropAt=dropAt;
     }
 
     // Getters and Setters
@@ -80,5 +84,21 @@ public class SpaceRequestDTO {
 
     public void setStatus(Status status) {
         this.status = status;
+    }
+
+    public String getPickUp() {
+        return pickUp;
+    }
+
+    public void setPickUp(String pickUp) {
+        this.pickUp = pickUp;
+    }
+
+    public String getDropAt() {
+        return dropAt;
+    }
+
+    public void setDropAt(String dropAt) {
+        this.dropAt = dropAt;
     }
 }

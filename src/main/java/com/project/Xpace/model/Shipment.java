@@ -34,8 +34,18 @@ public class Shipment {
     @Column(nullable = false)
     private Shipment.Status status= Status.IN_TRANSIT;
 
-    @Column(name = "created_at",updatable=false)
-    private LocalDateTime createdAt;
+
+    @Column(name = "created_at",columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP",updatable=false)
+    private LocalDateTime createdAt=LocalDateTime.now();
+
+    @Column(name="weight",updatable = true)
+    private int weight;
+
+    @Column(nullable = false)
+    private String pickUp;
+
+    @Column(nullable = false)
+    private String dropAt;
 
 
     public void setCreatedAt(LocalDateTime createdAt){
@@ -75,5 +85,29 @@ public class Shipment {
 
     public LocalDateTime getCreatedAt() {
         return createdAt;
+    }
+
+    public int getWeight() {
+        return weight;
+    }
+
+    public void setWeight(int weight) {
+        this.weight = weight;
+    }
+
+    public String getPickUp() {
+        return pickUp;
+    }
+
+    public void setPickUp(String pickUp) {
+        this.pickUp = pickUp;
+    }
+
+    public String getDropAt() {
+        return dropAt;
+    }
+
+    public void setDropAt(String dropAt) {
+        this.dropAt = dropAt;
     }
 }

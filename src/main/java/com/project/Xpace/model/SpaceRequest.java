@@ -43,15 +43,22 @@ public class SpaceRequest {
     @Column(nullable = false)
     private  Status status=Status.PENDING;
 
+    @Column(nullable = false)
+    private String pickUp;
 
-    public SpaceRequest(int id, User fromAdmin, User toAdmin, Journey toJourney, int requestedCapacity, LocalDateTime createdAt, Status status) {
+    @Column(nullable = false)
+    private String dropAt;
+
+    public SpaceRequest(int id, User fromAdmin, User toAdmin, Journey toJourney, int requestedCapacity, Status status ,String pickUp,String dropAt ) {
         this.id = id;
         this.fromAdmin = fromAdmin;
         this.toAdmin = toAdmin;
         this.toJourney = toJourney;
         this.requestedCapacity = requestedCapacity;
-        this.createdAt = createdAt;
+        this.createdAt=LocalDateTime.now();
         this.status = status;
+        this.pickUp=pickUp;
+        this.dropAt=dropAt;
     }
 
     public SpaceRequest() {
@@ -111,5 +118,21 @@ public class SpaceRequest {
 
     public void setStatus(Status status) {
         this.status = status;
+    }
+
+    public String getPickUp() {
+        return pickUp;
+    }
+
+    public void setPickUp(String pickUp) {
+        this.pickUp = pickUp;
+    }
+
+    public String getDropAt() {
+        return dropAt;
+    }
+
+    public void setDropAt(String dropAt) {
+        this.dropAt = dropAt;
     }
 }

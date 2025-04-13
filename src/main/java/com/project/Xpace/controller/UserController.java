@@ -24,4 +24,9 @@ public class UserController {
         return ResponseEntity.ok(user);
     }
 
+    @GetMapping("/profile")
+    public String getProfile(){
+        return "Welcome to your profile ! This is a protected endpoint.";
+    }
+
 }

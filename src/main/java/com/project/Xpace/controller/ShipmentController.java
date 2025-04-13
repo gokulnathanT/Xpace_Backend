@@ -1,13 +1,14 @@
 package com.project.Xpace.controller;
 
 
+import com.project.Xpace.DTO.JourneyDTO;
 import com.project.Xpace.DTO.ShipmentDTO;
+import com.project.Xpace.model.Journey;
 import com.project.Xpace.service.ShipmentService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -31,6 +32,15 @@ public class ShipmentController {
         return shipmentService.getShipmentById(shipmentId);
     }
 
-
+    @PostMapping("/create")
+    public ResponseEntity<ShipmentDTO> createShipment(@RequestBody ShipmentDTO shipmentDTO){
+        try{
+            ShipmentDTO createdShipment=shipmentService.createShipment(shipmentDTO);
+            return ResponseEntity.ok(createdShipment);
+        }
+        catch (RuntimeException e){
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(shipmentDTO);
+        }
+    }
 
 }

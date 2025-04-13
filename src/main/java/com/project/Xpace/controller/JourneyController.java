@@ -1,6 +1,7 @@
 package com.project.Xpace.controller;
 
 import com.project.Xpace.DTO.JourneyDTO;
+import com.project.Xpace.model.Journey;
 import com.project.Xpace.service.JourneyService;
 import org.apache.coyote.Response;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -51,4 +52,5 @@ public class JourneyController {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(journeyDTO);
         }
     }
+
 }

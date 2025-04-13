@@ -2,8 +2,12 @@ package com.project.Xpace.service;
 
 import com.project.Xpace.DTO.ShipmentDTO;
 import com.project.Xpace.Mapper.ShipmentMapper;
+import com.project.Xpace.model.Journey;
 import com.project.Xpace.model.Shipment;
+import com.project.Xpace.model.User;
+import com.project.Xpace.repo.JourneyRepo;
 import com.project.Xpace.repo.ShipmentRepo;
+import com.project.Xpace.repo.UserRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -15,6 +19,15 @@ public class ShipmentService {
 
     @Autowired
     private ShipmentRepo repo;
+
+    @Autowired
+    private UserRepo userRepo;
+
+    @Autowired
+    private ShipmentMapper shipmentMapper;
+
+    @Autowired
+    private JourneyRepo journeyRepo;
 
     public List<ShipmentDTO> getAllShipment(int id){
         System.out.println("Service : Getting all the shipments of a journey");
@@ -29,4 +42,18 @@ public class ShipmentService {
                 .orElse(new ShipmentDTO()); // Returns an empty DTO instead of exception
     }
 
+    public ShipmentDTO createShipment(ShipmentDTO shipmentDTO) {
+        User createdBy=userRepo.findById(shipmentDTO.
+                getCreatedById())
+                .orElseThrow(()->new RuntimeException("Created user not found"));
+
+        Journey journey=journeyRepo.findById(shipmentDTO.getJourneyId())
+                        .orElseThrow(()-> new RuntimeException("Journey not found"));
+        System.out.println("Creating shipment !");
+
+        Shipment shipment=shipmentMapper.toEntity(shipmentDTO,createdBy,journey);
+        System.out.println(shipment.toString());
+        shipment=repo.save(shipment);
+        return ShipmentMapper.toDTO(shipment);
+    }
 }

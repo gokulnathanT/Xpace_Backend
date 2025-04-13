@@ -1,8 +1,12 @@
 package com.project.Xpace.Mapper;
 
 import com.project.Xpace.DTO.ShipmentDTO;
+import com.project.Xpace.model.Journey;
 import com.project.Xpace.model.Shipment;
+import com.project.Xpace.model.User;
+import org.springframework.stereotype.Component;
 
+@Component
 public class ShipmentMapper {
     public static ShipmentDTO toDTO(Shipment shipment){
         if(shipment==null) return null;
@@ -10,14 +14,20 @@ public class ShipmentMapper {
                 shipment.getJourneyId().getId(),
                 shipment.getStatus().toString(),
                 shipment.getCreatedBy().getId(),
-                shipment.getCreatedAt());
+                shipment.getWeight(),
+                shipment.getPickUp(),
+                shipment.getDropAt());
     }
-    public static Shipment toEntity(ShipmentDTO dto){
+    public Shipment toEntity(ShipmentDTO dto, User createdBy,Journey journey){
         if(dto==null) return null;
         Shipment shipment=new Shipment();
         shipment.setId(dto.getId());
         shipment.setStatus(Shipment.Status.valueOf(dto.getStatus()));
-        shipment.setCreatedAt(dto.getCreatedAt());
+        shipment.setCreatedBy(createdBy);
+        shipment.setJourneyId(journey);
+        shipment.setWeight(dto.getWeight());
+        shipment.setPickUp(dto.getPickUp());
+        shipment.setDropAt(dto.getDropAt());
         return shipment;
     }
 
