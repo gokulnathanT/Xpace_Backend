@@ -7,19 +7,21 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.Optional;
 
 
 @RestController
+@CrossOrigin(origins = "http://localhost:5173")
 @RequestMapping("/auth")
 public class AuthController {
 
@@ -49,9 +51,17 @@ public class AuthController {
         authManager.authenticate(
                 new UsernamePasswordAuthenticationToken(authRequest.getEmail(),authRequest.getPassword())
         );
-        System.out.println("Logged In");
-        String token= jwtUtil.generateToken(authRequest.getEmail());
-        return ResponseEntity.ok(new AuthResponse(token));
+        Optional<User> optionalUser=userrepo.findByEmail(authRequest.getEmail());
+        if(optionalUser.isPresent()){
+            System.out.println("Logged In");
+            User user=optionalUser.get();
+            String token= jwtUtil.generateToken(authRequest.getEmail(),user.getId());
+            return ResponseEntity.ok(new AuthResponse(token));
+        }
+        else{
+            return  ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("user not found");
+        }
+
     }
 
     @Getter @Setter

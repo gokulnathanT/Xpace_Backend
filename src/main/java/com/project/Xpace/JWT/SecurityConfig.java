@@ -27,12 +27,14 @@ public class SecurityConfig {
                 .csrf(csrf->csrf.disable())
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests(auth->auth
+                        .requestMatchers("/api/journeys/**").permitAll()
                         .requestMatchers("/auth/**").permitAll()
+                        .requestMatchers("/api/shipments/**").permitAll()
+                                .requestMatchers("/api/spacerequests/**").permitAll()
                         .requestMatchers("/admin/**").hasAuthority("ADMIN")
-                        .requestMatchers(HttpMethod.POST,"/api/shipments/**").hasAuthority("JOURNEY_INCHARGE")
-                        .requestMatchers(HttpMethod.GET,"/api/shipments/**").hasAnyAuthority("ADMIN","JOURNEY_INCHARGE")
-                        .requestMatchers("/api/spacerequests/**").hasAuthority("ADMIN")
+                                .requestMatchers("/api/users/**").permitAll()
                         .anyRequest().authenticated()
+//                        .requestMatchers(HttpMethod.POST,"/api/shipments/**").permitAll()
                 )
                 .addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class)
                 .build();

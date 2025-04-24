@@ -7,7 +7,6 @@ import io.jsonwebtoken.io.Decoders;
 import io.jsonwebtoken.security.Keys;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
-import org.springframework.stereotype.Service;
 
 import javax.crypto.KeyGenerator;
 import javax.crypto.SecretKey;
@@ -34,8 +33,10 @@ public class JWTUtil {
             throw new RuntimeException(e);
         }
     }
- public String generateToken(String email){
+ public String generateToken(String email, long id){
         Map<String,Object> claims=new HashMap<>();
+
+        claims.put("userId",id);
         return Jwts.builder()
                 .claims()
                 .add(claims)
