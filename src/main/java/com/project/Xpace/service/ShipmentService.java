@@ -56,4 +56,18 @@ public class ShipmentService {
         shipment=repo.save(shipment);
         return ShipmentMapper.toDTO(shipment);
     }
+
+    public ShipmentDTO setDelivered(int shipmentId) {
+        Shipment shipment=repo.findById(shipmentId).orElseThrow(()->new RuntimeException("Shipment not found"));
+        shipment.setStatus(Shipment.Status.DELIVERED);
+        repo.save(shipment);
+        return ShipmentMapper.toDTO(shipment);
+    }
+
+    public ShipmentDTO setCancelled(int shipmentId) {
+        Shipment shipment=repo.findById(shipmentId).orElseThrow(()->new RuntimeException("Shipment not found"));
+        shipment.setStatus(Shipment.Status.CANCELLED);
+        repo.save(shipment);
+        return ShipmentMapper.toDTO(shipment);
+    }
 }

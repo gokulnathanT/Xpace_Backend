@@ -33,10 +33,11 @@ public class JWTUtil {
             throw new RuntimeException(e);
         }
     }
- public String generateToken(String email, long id){
+ public String generateToken(String email, long id,Enum role){
         Map<String,Object> claims=new HashMap<>();
 
         claims.put("userId",id);
+        claims.put("role",role);
         return Jwts.builder()
                 .claims()
                 .add(claims)

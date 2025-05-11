@@ -55,7 +55,8 @@ public class AuthController {
         if(optionalUser.isPresent()){
             System.out.println("Logged In");
             User user=optionalUser.get();
-            String token= jwtUtil.generateToken(authRequest.getEmail(),user.getId());
+
+            String token= jwtUtil.generateToken(authRequest.getEmail(),user.getId(),user.getRole());
             return ResponseEntity.ok(new AuthResponse(token));
         }
         else{

@@ -4,6 +4,7 @@ import com.project.Xpace.DTO.SpaceRequestDTO;
 import com.project.Xpace.model.SpaceRequest;
 import com.project.Xpace.service.SpaceRequestService;
 import jakarta.websocket.server.PathParam;
+import lombok.Data;
 import org.apache.coyote.Response;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -51,6 +52,35 @@ public class SpaceRequestController {
         }
     }
 
+    @PutMapping("/update/{spaceRequestId}")
+    public ResponseEntity<?>SpaceRequest(@PathVariable int spaceRequestId){
+        try{
+            SpaceRequestDTO updatedSpaceRequest=request.updateSpaceRequest(spaceRequestId);
+            return ResponseEntity.ok(updatedSpaceRequest);
+        }catch (RuntimeException e){
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(spaceRequestId);
+        }
+    }
 
+    @PutMapping("/updateAccept/{spaceRequestId}")
+    public ResponseEntity<?> SpaceRequestAccepted(@PathVariable int spaceRequestId){
+        try{
+            SpaceRequestDTO acceptedSpaceRequest=request.acceptSpaceRequest(spaceRequestId);
+            return ResponseEntity.ok(acceptedSpaceRequest);
+        } catch (RuntimeException e) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(spaceRequestId);
+        }
+    }
+
+    @DeleteMapping("/deleteSpaceRequest/{spaceRequestId}")
+    public ResponseEntity<?> deleteSpaceRequest(@PathVariable int spaceRequestId){
+        try{
+            SpaceRequestDTO deletedSpaceRequest=request.deleteSpaceRequest(spaceRequestId);
+            return ResponseEntity.ok(deletedSpaceRequest);
+        }
+        catch (RuntimeException e){
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(spaceRequestId);
+        }
+    }
 
 }

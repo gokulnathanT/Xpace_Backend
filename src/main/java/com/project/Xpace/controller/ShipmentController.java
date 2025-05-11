@@ -35,13 +35,36 @@ public class ShipmentController {
 
     @PostMapping("/create")
     public ResponseEntity<ShipmentDTO> createShipment(@RequestBody ShipmentDTO shipmentDTO){
+        System.out.println(shipmentDTO.toString());
         try{
             ShipmentDTO createdShipment=shipmentService.createShipment(shipmentDTO);
+
             return ResponseEntity.ok(createdShipment);
         }
         catch (RuntimeException e){
+            System.out.println(shipmentDTO.toString());
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(shipmentDTO);
         }
     }
 
+    @PutMapping("/updateDelivered/{shipmentId}")
+    public ResponseEntity<?> setDelivered(@PathVariable int shipmentId){
+        try{
+            ShipmentDTO deliveredShipment=shipmentService.setDelivered(shipmentId);
+            return ResponseEntity.ok(deliveredShipment);
+        }
+        catch (RuntimeException e){
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(shipmentId);
+        }
+    }
+
+    @PutMapping("/updateCancel/{shipmentId}")
+    public ResponseEntity<?> setCancelled(@PathVariable int shipmentId){
+        try{
+            ShipmentDTO cancelledShipment=shipmentService.setCancelled(shipmentId);
+            return ResponseEntity.ok(cancelledShipment);
+        }catch (RuntimeException e){
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(shipmentId);
+        }
+    }
 }

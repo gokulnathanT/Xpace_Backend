@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -60,6 +61,32 @@ public class SpaceRequestService {
         System.out.println(spaceRequest.toString());
 
         spaceRequest=repo.save(spaceRequest);
+        return SpaceRequestMapper.toDTO(spaceRequest);
+    }
+
+    public SpaceRequestDTO updateSpaceRequest(int spaceRequestId) {
+        SpaceRequest spaceRequest=repo.findById(spaceRequestId)
+                .orElseThrow(()->new RuntimeException("Spacerequest not found"));
+        spaceRequest.setStatus(SpaceRequest.Status.valueOf("REJECTED"));
+        repo.save(spaceRequest);
+        return SpaceRequestMapper.toDTO(spaceRequest);
+    }
+
+    public SpaceRequestDTO acceptSpaceRequest(int spaceRequestId) {
+        SpaceRequest spaceRequest=repo.findById(spaceRequestId)
+                .orElseThrow(()->new RuntimeException("Spacerequest not found"));
+        spaceRequest.setStatus(SpaceRequest.Status.valueOf("APPROVED"));
+        repo.save(spaceRequest);
+        return SpaceRequestMapper.toDTO(spaceRequest);
+    }
+
+    public SpaceRequestDTO deleteSpaceRequest(int spaceRequestId) {
+        SpaceRequest spaceRequest=repo.findById(spaceRequestId)
+                .orElseThrow(()->new RuntimeException("Spacerequest not found"));
+        if(spaceRequest!=null){
+            System.out.println("Deleted space request ");
+            repo.deleteById(spaceRequestId);
+        }
         return SpaceRequestMapper.toDTO(spaceRequest);
     }
 }
